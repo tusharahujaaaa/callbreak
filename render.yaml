@@ -1,0 +1,9 @@
+# Render Blueprint: one Node web service serves the game page and the WebSocket server.
+services:
+  - type: web
+    name: lakdi
+    runtime: node
+    plan: free          # free sleeps after ~15 min idle (rooms are lost); use "starter" to keep it always on
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /

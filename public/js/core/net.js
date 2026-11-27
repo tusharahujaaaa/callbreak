@@ -19,9 +19,16 @@ export function send(msg) {
   if (ws && ws.readyState === 1) ws.send(JSON.stringify(msg));
 }
 
+// Same-host by default; set window.LAKDI_SERVER in public/config.js when the page and server are on different hosts.
+function wsUrl() {
+  const cfg = window.LAKDI_SERVER;
+  if (cfg) return cfg.replace(/^http/, 'ws');
+  return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`;
+}
+
 export function connect(onMessage) {
   handler = onMessage;
-  ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
+  ws = new WebSocket(wsUrl());
   ws.onopen = () => {
     $('#conn').classList.add('hidden');
     send({ t: 'hello', playerId });
