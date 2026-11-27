@@ -1,0 +1,22 @@
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  :root { --cw: 62px; }
+  .log { display: none; }
+  .me, .center, #scene3d { right: 0; }
+  .pos-3 { right: 14px; }
+}
+@media (max-width: 640px) {
+  :root { --cw: 46px; }
+  .seat { min-width: 0; padding: 5px 8px; gap: 6px; }
+  .avatar { width: 30px; height: 30px; font-size: .9rem; }
+  .seat .nm { max-width: 90px; font-size: .85rem; }
+  .seat .bw { font-size: .75rem; }
+  .seat .tot, .backs { display: none; }
+  .pos-1 { left: 6px; top: 30%; }
+  .pos-3 { right: 6px; top: 30%; }
+  .trick { width: 210px; height: 170px; }
+  .center { padding-bottom: 130px; }
+  .hand .card { margin-left: calc(var(--cw) * -0.5); }
+  .tb-right .btn.small { padding: 4px 7px; font-size: .75rem; }
+  .room-chip { display: none; }
+}

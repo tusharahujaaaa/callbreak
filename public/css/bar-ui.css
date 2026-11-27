@@ -1,0 +1,109 @@
+/* ---------- Bar UI: calls, trump picker, drinks menu ----------
+   Matches the name tags: smoky dark glass, thin amber edge, serif capitals, ivory tokens. */
+
+.bid-panel {
+  background: linear-gradient(180deg, rgba(18, 11, 7, .86), rgba(8, 5, 3, .9));
+  border: 1px solid rgba(240, 194, 122, .38);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .6), 0 24px 70px rgba(0, 0, 0, .75), inset 0 1px 0 rgba(255, 220, 160, .08);
+  backdrop-filter: blur(6px);
+  padding: 18px 22px 20px;
+  width: auto;
+  max-width: min(760px, 94vw);
+  text-align: center;
+}
+.three-on .bid-panel, .bid-panel {
+  left: 50%; right: auto; top: auto; bottom: 39%;
+  transform: translateX(-50%);
+  animation: callIn .28s ease-out;
+}
+@keyframes callIn { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.call-head { margin-bottom: 14px; }
+.call-kicker { display: block; font: 600 .7rem/1 var(--font-display, Georgia, serif); letter-spacing: .32em; text-transform: uppercase; color: #c9a25e; margin-bottom: 6px; }
+.bid-panel h3 { margin: 0; font: 700 1.25rem/1.2 var(--font-display, Georgia, serif); letter-spacing: .1em; text-transform: uppercase; color: #f4e6c8; text-shadow: 0 2px 10px #000; }
+.call-note { margin: 8px 0 0; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: #a8916a; }
+.call-tags { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+.call-tag { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: #d8c39a; padding: 3px 9px; border: 1px solid rgba(240, 194, 122, .25); border-radius: 4px; background: rgba(0, 0, 0, .35); }
+.call-tag b { color: #f6d58a; margin-left: 4px; }
+
+/* Ivory tokens */
+.call-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.call-token {
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer; padding: 0;
+  font: 700 1.05rem/1 var(--font-display, Georgia, serif); color: #3a2410;
+  background: radial-gradient(circle at 35% 30%, #fffaf0 0%, #eadfc6 45%, #c9b48c 100%);
+  border: 1px solid #7a5a2a;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .25), inset 0 -3px 6px rgba(90, 60, 20, .35), 0 3px 0 #3b2611, 0 6px 14px rgba(0, 0, 0, .6);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s;
+}
+.call-token:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .3), 0 7px 0 #3b2611, 0 0 22px rgba(255, 180, 80, .65); }
+.call-token:active { transform: translateY(0); }
+.call-token.low { filter: saturate(.3) brightness(.62); }
+.call-token.low:hover { filter: saturate(.5) brightness(.8); }
+
+/* Trump picker: ivory tiles */
+.trump-panel .trump-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.trump-btn {
+  background: radial-gradient(circle at 40% 25%, #fffaf0, #e3d6b8 70%, #c6b088);
+  border: 1px solid #7a5a2a; border-radius: 8px; padding: 12px 6px 10px; color: #171310;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .25), 0 3px 0 #3b2611, 0 8px 18px rgba(0, 0, 0, .55);
+}
+.trump-btn .nm { font-family: var(--font-display, Georgia, serif); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; }
+.trump-btn .ct { color: #6d5634; font-size: .7rem; }
+.trump-btn:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .3), 0 7px 0 #3b2611, 0 0 22px rgba(255, 180, 80, .65); }
+@media (max-width: 560px) { .trump-panel .trump-grid { grid-template-columns: repeat(2, 1fr); } .call-token { width: 40px; height: 40px; } }
+
+/* ---------- Drinks menu (bottom-right) ---------- */
+.bar-menu { position: absolute; right: 16px; bottom: 16px; z-index: 22; display: none; align-items: center; gap: 8px; padding: 8px 10px;
+  background: rgba(12, 7, 4, .78); border: 1px solid rgba(240, 194, 122, .3); border-radius: 8px; backdrop-filter: blur(4px); box-shadow: 0 10px 30px rgba(0,0,0,.6); }
+.three-on .bar-menu { display: flex; }
+.bar-menu .lvl { width: 54px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.08); overflow: hidden; border: 1px solid rgba(240,194,122,.25); }
+.bar-menu .lvl i { display: block; height: 100%; background: linear-gradient(90deg, #b8741a, #f2c14e); transition: width 1s linear; }
+.bar-menu .lbl { font: 600 .68rem/1 var(--font-display, Georgia, serif); letter-spacing: .18em; text-transform: uppercase; color: #c9a25e; }
+.bar-btn { font: 600 .75rem/1 var(--font-display, Georgia, serif); letter-spacing: .1em; text-transform: uppercase; color: #f0dfbd; cursor: pointer;
+  background: rgba(40, 24, 14, .8); border: 1px solid rgba(240, 194, 122, .3); border-radius: 5px; padding: 7px 9px; }
+.bar-btn:hover { border-color: #f2c14e; box-shadow: 0 0 14px rgba(255, 180, 80, .4); }
+.bar-btn.on { background: rgba(242, 193, 78, .18); border-color: #f2c14e; color: #ffe6b0; }
+.bar-btn:disabled { opacity: .5; cursor: default; box-shadow: none; }
+
+/* ---------- Bid strip (v3): compact, just above your cards ---------- */
+#bidPanel.bid-panel {
+  top: auto; bottom: 30%; left: 50%; right: auto; transform: translateX(-50%);
+  width: auto; max-width: min(640px, 96vw); padding: 9px 12px 10px; border-radius: 10px; text-align: left;
+  background: linear-gradient(180deg, rgba(22, 14, 9, .92), rgba(10, 6, 4, .94));
+  border: 1px solid rgba(240, 194, 122, .3);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .65);
+}
+#bidPanel .bp-line { font: 600 .88rem/1.25 var(--font-display, Georgia, serif); color: #f4e6c8; text-align: center; margin: 0 4px 7px; }
+#bidPanel .bp-line b { color: #f6d58a; }
+#bidPanel .bp-warn { font-size: .72rem; color: #ffb27a; text-align: center; margin: -3px 0 7px; }
+#bidPanel .bp-timer { position: relative; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .1); margin: 0 34px 8px 0; }
+#bidPanel .bp-timer i { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: linear-gradient(90deg, #d8891c, #f2c14e); }
+#bidPanel .bp-timer span { position: absolute; right: -32px; top: -6px; font-size: .7rem; color: #c9b48c; }
+#bidPanel .bp-timer.urgent i { background: linear-gradient(90deg, #b8321a, #f06a3a); }
+#bidPanel .bp-row { display: flex; gap: 5px; justify-content: center; flex-wrap: nowrap; }
+#bidPanel .bp-key {
+  min-width: 34px; height: 34px; padding: 0 6px; border-radius: 7px; cursor: pointer;
+  font: 700 .95rem/1 var(--font-display, Georgia, serif); color: #2e1d0c;
+  background: linear-gradient(180deg, #fbf3e2, #e4d4b2); border: 1px solid #8a6a3a;
+  box-shadow: 0 2px 0 #4a3216, 0 3px 8px rgba(0, 0, 0, .45);
+  transition: transform .1s ease, box-shadow .1s ease, background .1s;
+}
+#bidPanel .bp-key:hover { transform: translateY(-2px); background: linear-gradient(180deg, #fff8e6, #f2c96e); box-shadow: 0 4px 0 #4a3216, 0 0 14px rgba(255, 180, 80, .55); }
+#bidPanel .bp-key:active { transform: translateY(1px); box-shadow: 0 1px 0 #4a3216; }
+#bidPanel .bp-key.low { opacity: .45; }
+#bidPanel .bp-key.hint { background: linear-gradient(180deg, #ffe7a6, #f2c14e); box-shadow: 0 0 0 2px #f2c14e, 0 0 16px rgba(255, 190, 80, .8); }
+#bidPanel .bp-hint {
+  height: 34px; padding: 0 12px; margin-left: 4px; border-radius: 7px; cursor: pointer;
+  font: 600 .78rem/1 var(--font-display, Georgia, serif); letter-spacing: .06em; color: #f0dfbd;
+  background: rgba(40, 24, 14, .9); border: 1px solid rgba(240, 194, 122, .4);
+}
+#bidPanel .bp-hint:hover, #bidPanel .bp-hint.on { border-color: #f2c14e; color: #ffe6b0; box-shadow: 0 0 12px rgba(255, 180, 80, .35); }
+@media (max-width: 640px) {
+  #bidPanel .bp-row { flex-wrap: wrap; }
+  #bidPanel .bp-key { min-width: 30px; height: 30px; }
+}
+.bar-menu .sep { width: 1px; align-self: stretch; background: rgba(240, 194, 122, .25); margin: 0 2px; }
+.bar-btn.drink { background: linear-gradient(180deg, rgba(242, 193, 78, .28), rgba(160, 100, 30, .25)); border-color: rgba(242, 193, 78, .6); color: #ffe6b0; }
+#bidPanel .bp-hint { white-space: nowrap; }

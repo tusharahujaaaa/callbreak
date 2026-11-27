@@ -1,0 +1,16 @@
+{
+  "name": "lakdi",
+  "version": "1.0.0",
+  "description": "Lakdi (Callbreak) - multiplayer browser card game with bots and host-configurable rules",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node test/simulate.js && node test/bar.test.js",
+    "test:e2e": "node test/e2e.js && node test/trump-e2e.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "three": "^0.187.0",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Lakdi — Callbreak</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/lobby.css">
+  <link rel="stylesheet" href="css/table.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/bar-ui.css">
+</head>
+<body>
+  <div id="conn" class="conn hidden">Reconnecting…</div>
+  <div id="toasts"></div>
+
+  <!-- Home -->
+  <section id="home" class="screen hidden">
+    <div class="home-card">
+      <div class="logo"><span>♠</span>Lakdi</div>
+      <p class="tag">Callbreak · 4 players · Spades are trump (or the highest bidder picks)</p>
+      <label class="field">Your name
+        <input id="nameInput" maxlength="16" placeholder="Enter your name" autocomplete="nickname">
+      </label>
+      <button id="btnCreate" class="btn primary big">Create a room</button>
+      <div class="row">
+        <input id="codeInput" maxlength="4" placeholder="CODE" class="code-input" autocomplete="off">
+        <button id="btnJoin" class="btn big">Join room</button>
+      </div>
+      <div class="divider"><span>or practise alone</span></div>
+      <div class="row">
+        <select id="soloLevel">
+          <option value="beginner">Beginner bots</option>
+          <option value="intermediate" selected>Intermediate bots</option>
+          <option value="pro">Pro bots</option>
+        </select>
+        <button id="btnSolo" class="btn big">Play vs bots</button>
+      </div>
+      <button class="btn link" data-action="rules">How to play</button>
+    </div>
+  </section>
+
+  <!-- Lobby -->
+  <section id="lobby" class="screen hidden"></section>
+
+  <!-- Table -->
+  <section id="table" class="screen hidden">
+    <header class="topbar">
+      <div class="tb-left"><span class="brand">♠ Lakdi</span><span id="roundInfo"></span><span class="trump-chip" id="trumpChip"></span></div>
+      <div class="tb-right">
+        <span class="room-chip" id="roomChip"></span>
+        <button class="btn small" data-action="mute" id="btnMute" title="Sound on/off">🔊</button>
+        <button class="btn small" data-action="gfx" id="btnGfx" title="Graphics quality: Low runs faster on older computers">GFX</button>
+        <button class="btn small" data-action="toggleLog">Log</button>
+        <button class="btn small" data-action="scores">Scores</button>
+        <button class="btn small" data-action="lastTrick">Last trick</button>
+        <button class="btn small" data-action="rules">Rules</button>
+        <button class="btn small danger" data-action="leave">Leave</button>
+      </div>
+    </header>
+    <div class="felt">
+      <div id="scene3d"></div>
+      <div class="seat-wrap pos-1" id="seat1"></div>
+      <div class="seat-wrap pos-2" id="seat2"></div>
+      <div class="seat-wrap pos-3" id="seat3"></div>
+      <div class="center">
+        <div class="trick" id="trick"><div class="trump-center" id="trumpCenter"></div></div>
+        <div class="status" id="status"></div>
+      </div>
+      <div class="me">
+        <div class="seat-wrap pos-0" id="seat0"></div>
+        <div class="hand" id="hand"></div>
+      </div>
+      <aside class="log" id="log"></aside>
+    </div>
+    <div id="announce"></div>
+    <div class="bar-menu" id="barMenu"></div>
+    <div id="bidPanel" class="bid-panel hidden"></div>
+    <div id="trumpPanel" class="bid-panel trump-panel hidden"></div>
+  </section>
+
+  <div id="modal" class="overlay hidden"><div class="panel" id="modalBody"></div></div>
+
+  <template id="rulesTpl">
+    <h2>How to play Lakdi</h2>
+    <div class="rules">
+      <p><b>4 players, every player for themselves.</b> A full 52-card deck is used, 13 cards each. Card order is A K Q J 10 9 … 2. <b>Spades (♠ Hukum) are trump</b>, unless the host lets the <b>highest bidder choose the trump suit</b> after bidding (on a tie, whoever bid first chooses). A game lasts 5 rounds by default.</p>
+      <h3>Bidding</h3>
+      <p>After the deal, starting with the player next to the dealer, everyone bids the number of tricks they think they will win. You can't pass. The host sets the lowest allowed bid (1 by default).</p>
+      <h3>Redeals (host can switch each one on or off)</h3>
+      <ul><li>Someone has no Spades</li><li>Someone has no face cards (J, Q, K, A)</li><li>All four bids add up to less than 8 (the host can change this number)</li></ul>
+      <h3>Playing</h3>
+      <ul>
+        <li><b>Follow suit</b> if you can.</li>
+        <li><b>Play higher:</b> if you can beat the card that is winning the trick, you must.</li>
+        <li><b>Trump:</b> if you have none of the suit that was led, you must play a trump. If someone has already trumped, you must play a higher trump if you have one.</li>
+        <li>You may only throw away a card from another suit when you have neither the led suit nor any trumps.</li>
+        <li>The highest trump wins the trick. If no trump was played, the highest card of the led suit wins. The winner leads the next trick.</li>
+      </ul>
+      <h3>Scoring</h3>
+      <ul><li>Win exactly your bid: <b>+bid</b></li><li>Each extra trick: <b>+0.1</b> (bid 4, win 6 → +4.2)</li><li>Win fewer than your bid: <b>−bid</b></li></ul>
+      <p>The highest total after the last round wins. The host can change every rule in the room lobby.</p>
+    </div>
+    <div class="panel-actions"><button class="btn primary" data-action="closeModal">Got it</button></div>
+  </template>
+
+  <script type="importmap">
+    { "imports": { "three": "/vendor/three/build/three.module.js", "three/addons/": "/vendor/three/examples/jsm/" } }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

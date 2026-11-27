@@ -1,0 +1,15 @@
+/* ---------- Home ---------- */
+#home { display: flex; align-items: center; justify-content: center; padding: 20px;
+  background: radial-gradient(ellipse at center, var(--felt) 0%, var(--felt-dark) 60%, var(--bg) 100%); }
+.home-card { width: min(420px, 100%); background: rgba(10, 24, 17, .85); border: 1px solid var(--line); border-radius: 20px;
+  padding: 28px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.logo { font-size: 3rem; font-weight: 800; text-align: center; letter-spacing: 1px; }
+.logo span { color: var(--gold); margin-right: 6px; }
+.tag { text-align: center; color: var(--muted); margin: -8px 0 6px; }
+.field { display: flex; flex-direction: column; gap: 6px; color: var(--muted); font-size: .9rem; }
+.row { display: flex; gap: 10px; }
+.row > * { flex: 1; }
+.code-input { text-transform: uppercase; letter-spacing: 4px; text-align: center; font-weight: 700; }
+.divider { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .85rem; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
